@@ -1,1 +1,1055 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#edf5ff">
+<title>Better Habits, Brighter Future</title>
+<style>
+:root {
+  --navy: #173c7d;
+  --blue: #4f7ff0;
+  --bg: #edf5ff;
+  --white: #fff;
+  --border: #d5e5ff;
+  --green: #59b978;
+  --red: #e96b72;
+  --purple: #8b73e8;
+  --yellow: #ffc857;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: #17366e;
+  font-family: "Trebuchet MS", "Malgun Gothic", sans-serif;
+  line-height: 1.65;
+}
+button, input { font: inherit; }
+button { cursor: pointer; }
+button:focus-visible, input:focus-visible {
+  outline: 3px solid #ffbf47;
+  outline-offset: 3px;
+}
+.hero {
+  min-height: 150px;
+  padding: 22px 18px;
+  text-align: center;
+  background: linear-gradient(115deg,#d9ebff,#c7edff,#fff0c8);
+  border-bottom: 5px solid #d7e7fb;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before, .hero::after {
+  position: absolute;
+  font-size: 65px;
+  opacity: .75;
+  bottom: -8px;
+}
+.hero::before { content: "📚"; left: 4%; }
+.hero::after { content: "🌱"; right: 5%; }
+.hero h1 {
+  margin: 0;
+  font-size: clamp(25px,4vw,42px);
+  color: #17448b;
+  letter-spacing: .2px;
+}
+.hero p { margin: 4px 0; font-size: 17px; }
+.layout {
+  display: grid;
+  grid-template-columns: 165px minmax(0,1fr) 265px;
+  gap: 12px;
+  padding: 14px;
+  max-width: 1600px;
+  margin: auto;
+}
+.sidebar, .main, .right-panel {
+  min-width: 0;
+}
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+.nav-button {
+  border: 0;
+  border-radius: 13px;
+  padding: 12px 10px;
+  text-align: left;
+  color: var(--navy);
+  background: transparent;
+  font-weight: 600;
+}
+.nav-button:hover, .nav-button.active {
+  background: #c9ddff;
+}
+.nav-icon { margin-right: 8px; font-size: 20px; }
+.main {
+  background: white;
+  border: 1px solid #e0ebff;
+  border-radius: 16px;
+  padding: 22px;
+  box-shadow: 0 5px 18px #6e95c40a;
+}
+.step-heading {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+.step-pill {
+  background: var(--blue);
+  color: white;
+  border-radius: 30px;
+  padding: 5px 17px;
+  font-weight: 700;
+}
+h2 { font-size: 25px; margin: 0; }
+h3 { margin: 0 0 6px; }
+.intro { margin: 5px 0 17px; }
+.story {
+  background: linear-gradient(110deg,#f8fbff,#f3f9ff);
+  border: 1px solid #a7d5ff;
+  border-radius: 13px;
+  padding: 19px;
+  font-size: 17px;
+  line-height: 2;
+}
+.story strong {
+  color: #245fc1;
+  background: #e2efff;
+  border-radius: 4px;
+  padding: 1px 3px;
+}
+.story-note {
+  margin-top: 12px;
+  color: #53719f;
+  font-size: 13px;
+}
+.section {
+  margin-top: 22px;
+  padding: 17px;
+  border: 1px solid #d8d8ff;
+  border-radius: 14px;
+  background: #fbfaff;
+}
+.section-description { margin: 3px 0 12px; }
+.word-grid {
+  display: grid;
+  grid-template-columns: repeat(3,minmax(0,1fr));
+  gap: 10px;
+}
+.word-card {
+  --tone: #e5f2ff;
+  background: var(--tone);
+  border: 1px solid #d1e3fa;
+  border-radius: 13px;
+  padding: 12px;
+  min-width: 0;
+}
+.word-card:nth-child(2) { background:#edf8e9; border-color:#d1e8c7; }
+.word-card:nth-child(3) { background:#fff0ef; border-color:#ffd1ce; }
+.word-card:nth-child(4) { background:#fff5db; border-color:#ffe0a0; }
+.word-card:nth-child(5) { background:#f0ecff; border-color:#d9ccff; }
+.word-card:nth-child(6) { background:#e5f8f6; border-color:#c2e9e4; }
+.word-top { display:flex; align-items:center; gap:8px; }
+.number {
+  display: inline-flex;
+  flex: 0 0 30px;
+  width: 30px;
+  height: 30px;
+  align-items: center;
+  justify-content: center;
+  background: #5c8cf2;
+  color: white;
+  border-radius: 50%;
+  font-weight: 700;
+}
+.word-card:nth-child(2) .number { background:#69ad70; }
+.word-card:nth-child(3) .number { background:#eb6565; }
+.word-card:nth-child(4) .number { background:#f2ad37; }
+.word-card:nth-child(5) .number { background:#9279e9; }
+.word-card:nth-child(6) .number { background:#42b7ba; }
+.expression {
+  font-size: 15px;
+  font-weight: 800;
+  overflow-wrap: anywhere;
+}
+.meaning { margin: 6px 0; font-size: 14px; }
+.example { font-size: 13px; color: #344b70; margin: 7px 0 0; }
+.sound-button {
+  margin-left: auto;
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  border: 1px solid #cbdcff;
+  background: #fff;
+  border-radius: 50%;
+  color: #2768ce;
+}
+.sound-button:hover { background:#e4efff; }
+.right-panel { display:flex; flex-direction:column; gap:14px; }
+.panel-card {
+  border-radius: 14px;
+  padding: 15px;
+  border: 1px solid var(--border);
+  background: white;
+}
+.panel-card h3 { font-size: 17px; margin-bottom: 10px; }
+.progress-row { display:flex; align-items:center; gap:10px; }
+.progress-track {
+  flex:1;
+  height:12px;
+  border-radius:20px;
+  background:#e2ebf8;
+  overflow:hidden;
+}
+.progress-fill {
+  width:0%;
+  height:100%;
+  background:var(--green);
+  transition:width .3s;
+}
+.expression-list { background:#eefaf8; border-color:#ccece7; }
+.expression-list ol { list-style:none; padding:0; margin:0; }
+.expression-list li {
+  display:flex;
+  align-items:center;
+  gap:9px;
+  padding:7px 8px;
+  margin-top:6px;
+  border-radius:10px;
+  background:white;
+  font-size:13px;
+}
+.expression-list li.done { background:#dff5e6; }
+.expression-list .number { width:25px; height:25px; flex-basis:25px; }
+.remember {
+  background:#fff9e8;
+  border-color:#f5e3a9;
+  font-size:14px;
+  text-align:center;
+  padding:18px 12px;
+}
+.remember p { margin:6px 0; }
+.bottom-note { color:#53719f; font-size:13px; text-align:center; padding:12px; }
+.page { display:none; }
+.page.active { display:block; }
+.action-row {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:18px;
+}
+.btn {
+  border:0;
+  border-radius:11px;
+  padding:10px 18px;
+  background:var(--blue);
+  color:white;
+  font-weight:700;
+  box-shadow:0 3px 0 #315fc4;
+}
+.btn:hover { filter:brightness(.96); transform:translateY(-1px); }
+.btn.secondary {
+  color:#244d91;
+  background:#e5efff;
+  box-shadow:none;
+}
+.btn:disabled { opacity:.45; cursor:not-allowed; transform:none; }
+.question-card {
+  border:1px solid #d8e6ff;
+  background:#f8fbff;
+  border-radius:14px;
+  padding:20px;
+  margin-top:14px;
+}
+.question-count { color:#5978a7; font-size:14px; }
+.question { font-size:20px; font-weight:700; margin:8px 0 15px; }
+.options { display:grid; gap:9px; }
+.option {
+  display:block;
+  width:100%;
+  text-align:left;
+  background:white;
+  color:#17366e;
+  border:1px solid #cbdcf6;
+  border-radius:11px;
+  padding:12px 14px;
+}
+.option:hover:not(:disabled) { background:#edf4ff; border-color:#79a5fa; }
+.option.correct { background:#e3f8e9; border-color:#62bf7d; }
+.option.incorrect { background:#fff0ef; border-color:#e77c7c; }
+.option:disabled { cursor:default; }
+.feedback {
+  display:none;
+  padding:12px;
+  border-radius:10px;
+  margin-top:13px;
+  background:#eaf5ff;
+  font-size:14px;
+}
+.feedback.show { display:block; }
+.feedback.good { background:#e6f7eb; }
+.feedback.bad { background:#fff1ed; }
+.hint { color:#9a5c16; margin-top:10px; font-size:14px; }
+.input-row { display:flex; gap:8px; margin-top:14px; }
+.answer-input {
+  min-width:0;
+  flex:1;
+  padding:11px 12px;
+  border:1px solid #cbdcf6;
+  border-radius:10px;
+  background:white;
+  color:#17366e;
+}
+.small { font-size:13px; color:#657b9e; }
+.result-score {
+  text-align:center;
+  border-radius:15px;
+  background:linear-gradient(120deg,#e8f4ff,#f1edff);
+  padding:25px 12px;
+  margin:16px 0;
+}
+.result-score strong { display:block; font-size:38px; color:#3268d0; }
+.result-list { padding-left:20px; }
+.result-list li { margin:6px 0; }
+.timer { font-weight:700; color:#2858ad; font-size:14px; }
+footer { text-align:center; color:#617b9e; padding:10px; font-size:13px; }
+@media(max-width:1100px) {
+  .layout { grid-template-columns:140px minmax(0,1fr); }
+  .right-panel { grid-column:2; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .remember { grid-column:1/-1; }
+  .word-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+@media(max-width:650px) {
+  .hero { min-height:125px; padding:20px 12px; }
+  .hero::before,.hero::after { font-size:33px; }
+  .hero h1 { font-size:26px; }
+  .hero p { font-size:14px; }
+  .layout { display:flex; flex-direction:column; padding:9px; gap:9px; }
+  .sidebar { flex-direction:row; overflow-x:auto; gap:5px; }
+  .nav-button { flex:1; min-width:max-content; text-align:center; padding:8px 10px; }
+  .nav-icon { display:block; margin:0; }
+  .main { padding:14px; }
+  .right-panel { display:grid; grid-template-columns:1fr; }
+  .remember { grid-column:auto; }
+  .word-grid { grid-template-columns:1fr; }
+  .story { font-size:15px; padding:13px; line-height:1.9; }
+  h2 { font-size:21px; }
+  .section { padding:12px; }
+  .question { font-size:18px; }
+  .input-row { flex-direction:column; }
+  .input-row .btn { width:100%; }
+}
+</style>
+</head>
+<body>
+<header class="hero">
+  <h1>Better Habits, Brighter Future</h1>
+  <p>Small changes make a big difference! ✨</p>
+  <span class="small">A 10-minute English learning adventure</span>
+</header>
 
+<div class="layout">
+  <nav class="sidebar" aria-label="Learning navigation">
+    <button class="nav-button active" data-go="0"><span class="nav-icon">🏠</span>Home</button>
+    <button class="nav-button" data-go="0"><span class="nav-icon">📖</span>Learn</button>
+    <button class="nav-button" data-go="1"><span class="nav-icon">✏️</span>Practice</button>
+    <button class="nav-button" data-go="2"><span class="nav-icon">🎮</span>Challenge</button>
+    <button class="nav-button" data-go="3"><span class="nav-icon">🏆</span>Review</button>
+  </nav>
+
+  <main class="main">
+    <section class="page active" id="page0">
+      <div class="step-heading">
+        <span class="step-pill">Step 1</span>
+        <h2>Read the Story</h2>
+      </div>
+      <p class="intro">Read Jisoo's story. Then learn six useful expressions about study habits.</p>
+      <div class="story">
+        Jisoo wanted to improve her study habits before the exam period. She began to
+        <strong>keep track of</strong> how long she studied each day. She also learned when to
+        <strong>take a break</strong> instead of studying for too long. While studying, she tried to
+        <strong>stay away from</strong> her phone and made sure to
+        <strong>get enough sleep</strong>. When she felt stressed, she learned how to
+        <strong>deal with</strong> it by taking a short walk. After several weeks, she found it easier to
+        <strong>stick to</strong> her new routine.
+        <div class="story-note">💡 Tip: Look at the words around each expression to understand its meaning.</div>
+      </div>
+
+      <div class="section">
+        <div class="step-heading">
+          <span class="step-pill" style="background:#8971e8">Step 2</span>
+          <h2>Learn the Expressions</h2>
+        </div>
+        <p class="section-description">Read each meaning and example. Tap 🔊 to hear the English sentence.</p>
+        <div class="word-grid" id="wordGrid"></div>
+      </div>
+
+      <div class="action-row">
+        <span class="small">⏱ Suggested time: 2 minutes</span>
+        <button class="btn" onclick="goTo(1)">Start Practice →</button>
+      </div>
+    </section>
+
+    <section class="page" id="page1">
+      <div class="step-heading">
+        <span class="step-pill">Step 3</span>
+        <h2>Practice Time!</h2>
+      </div>
+      <p class="intro">Choose the expression that best completes each sentence.</p>
+      <div class="progress-row">
+        <div class="progress-track"><div class="progress-fill" id="practiceBar"></div></div>
+        <span id="practiceCount">0 / 6</span>
+      </div>
+      <div class="question-card" id="practiceCard"></div>
+      <div class="action-row">
+        <button class="btn secondary" onclick="goTo(0)">← Review Expressions</button>
+        <span class="small">⏱ Suggested time: 3 minutes</span>
+        <button class="btn" id="practiceNext" onclick="nextPractice()" disabled>Next →</button>
+      </div>
+    </section>
+
+    <section class="page" id="page2">
+      <div class="step-heading">
+        <span class="step-pill" style="background:#8971e8">Step 4</span>
+        <h2>Real-Life Challenge</h2>
+      </div>
+      <p class="intro">Imagine you are talking to a friend about healthy study habits.</p>
+      <div class="progress-row">
+        <div class="progress-track"><div class="progress-fill" id="challengeBar"></div></div>
+        <span id="challengeCount">0 / 6</span>
+      </div>
+      <div class="question-card" id="challengeCard"></div>
+      <div class="action-row">
+        <button class="btn secondary" onclick="goTo(1)">← Practice</button>
+        <span class="small">⏱ Suggested time: 3 minutes</span>
+        <button class="btn" id="challengeNext" onclick="nextChallenge()" disabled>Next →</button>
+      </div>
+    </section>
+
+    <section class="page" id="page3">
+      <div class="step-heading">
+        <span class="step-pill" style="background:#e8a72e">Step 5</span>
+        <h2>Final Review</h2>
+      </div>
+      <p class="intro">Check what you remember and celebrate your progress!</p>
+      <div class="result-score">
+        <div>Your learning score</div>
+        <strong id="finalPercent">0%</strong>
+        <span id="finalMessage">Keep practicing!</span>
+      </div>
+      <div class="section">
+        <h3>📚 Expressions to Remember</h3>
+        <ol class="result-list" id="reviewList"></ol>
+      </div>
+      <div class="section">
+        <h3>📝 Quick Spelling Check</h3>
+        <p id="spellingPrompt">Type the English expression for “기록하다, 추적하다”.</p>
+        <form id="spellingForm" class="input-row">
+          <input class="answer-input" id="spellingInput" autocomplete="off"
+                 placeholder="Type the expression here..." aria-label="English expression">
+          <button class="btn" type="submit">Check</button>
+        </form>
+        <div id="spellingFeedback" class="feedback" role="status" aria-live="polite"></div>
+        <div class="action-row">
+          <button class="btn secondary" id="spellingHint" onclick="showSpellingHint()">💡 Hint</button>
+          <button class="btn" id="spellingNext" onclick="nextSpelling()" disabled>Next Word →</button>
+        </div>
+      </div>
+      <div class="action-row">
+        <button class="btn secondary" onclick="goTo(0)">↻ Study Again</button>
+        <button class="btn" onclick="restartApp()">Start Over ↻</button>
+      </div>
+    </section>
+  </main>
+
+  <aside class="right-panel">
+    <div class="panel-card">
+      <h3>📈 Your Progress</h3>
+      <div class="progress-row">
+        <div class="progress-track"><div class="progress-fill" id="overallBar"></div></div>
+        <span id="overallCount">0 / 6</span>
+      </div>
+      <p class="small" id="overallMessage">Your learning adventure starts here!</p>
+    </div>
+
+    <div class="panel-card expression-list">
+      <h3>🎯 Target Expressions</h3>
+      <ol id="targetList"></ol>
+    </div>
+
+    <div class="panel-card remember">
+      <h3>💡 Remember!</h3>
+      <p>Good study habits help you learn better and feel less stressed.</p>
+      <p>Small steps make a big difference! 🌱</p>
+    </div>
+  </aside>
+</div>
+
+<footer>🌿 Better Habits, Brighter Future ♥ Keep learning, one step at a time!</footer>
+
+<script>
+"use strict";
+
+const expressions = [
+  {
+    phrase: "keep track of",
+    meaning: "기록하다, 추적하다",
+    example: "I keep track of my study time using a planner.",
+    korean: "나는 계획표를 사용해 공부 시간을 기록한다.",
+    hint: "You write down information so you can check it later.",
+    blank: "I use a notebook to ___ my daily expenses.",
+    blankAnswer: "keep track of",
+    scenario: "You want to know how many hours you study each day.",
+    scenarioAnswer: "keep track of"
+  },
+  {
+    phrase: "take a break",
+    meaning: "휴식을 취하다",
+    example: "I take a break after studying for an hour.",
+    korean: "나는 한 시간 동안 공부한 뒤 휴식을 취한다.",
+    hint: "You stop working for a short time to rest.",
+    blank: "I feel tired, so I want to ___ for ten minutes.",
+    blankAnswer: "take a break",
+    scenario: "Your friend has studied for three hours without resting.",
+    scenarioAnswer: "take a break"
+  },
+  {
+    phrase: "stay away from",
+    meaning: "~을 피하다, ~에 가까이하지 않다",
+    example: "I stay away from my phone while studying.",
+    korean: "나는 공부하는 동안 휴대전화를 멀리한다.",
+    hint: "You keep your distance from something.",
+    blank: "I turn off my phone to ___ distractions.",
+    blankAnswer: "stay away from",
+    scenario: "You keep checking social media while studying.",
+    scenarioAnswer: "stay away from"
+  },
+  {
+    phrase: "get enough sleep",
+    meaning: "충분한 수면을 취하다",
+    example: "I get enough sleep to stay focused.",
+    korean: "나는 집중력을 유지하기 위해 충분히 잔다.",
+    hint: "You sleep for the amount of time your body needs.",
+    blank: "I go to bed early because I need to ___.",
+    blankAnswer: "get enough sleep",
+    scenario: "You feel tired every morning because you sleep too little.",
+    scenarioAnswer: "get enough sleep"
+  },
+  {
+    phrase: "deal with",
+    meaning: "~에 대처하다, ~을 해결하다",
+    example: "I deal with stress by taking a short walk.",
+    korean: "나는 짧게 산책하며 스트레스에 대처한다.",
+    hint: "You manage a problem or difficult situation.",
+    blank: "Talking to a friend helps me ___ stress.",
+    blankAnswer: "deal with",
+    scenario: "You feel stressed before an exam and need to manage it.",
+    scenarioAnswer: "deal with"
+  },
+  {
+    phrase: "stick to",
+    meaning: "~을 지키다, ~을 계속 따르다",
+    example: "I stick to my new routine every day.",
+    korean: "나는 매일 새로운 일과를 지킨다.",
+    hint: "You continue following a plan or routine.",
+    blank: "Even when I feel lazy, I ___ my study plan.",
+    blankAnswer: "stick to",
+    scenario: "You want to keep following the study plan you made.",
+    scenarioAnswer: "stick to"
+  }
+];
+
+let page = 0;
+let practiceIndex = 0;
+let challengeIndex = 0;
+let spellingIndex = 0;
+let practiceScore = 0;
+let challengeScore = 0;
+let spellingScore = 0;
+let practiceAnswered = false;
+let challengeAnswered = false;
+let spellingAnswered = false;
+let spellingHintUsed = false;
+let practiceResults = Array(6).fill(null);
+let challengeResults = Array(6).fill(null);
+let spellingResults = Array(6).fill(null);
+
+const $ = id => document.getElementById(id);
+
+function shuffle(array) {
+  const result = [...array];
+  for (let i = result.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [result[i], result[j]] = [result[j], result[i]];
+  }
+  return result;
+}
+
+function normalizeAnswer(value) {
+  return value.toLowerCase().trim().replace(/[.!?,]/g, "").replace(/\s+/g, " ");
+}
+
+function speak(text, language = "en-US") {
+  if (!("speechSynthesis" in window)) {
+    alert("Audio playback is not supported in this browser.");
+    return;
+  }
+  window.speechSynthesis.cancel();
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.lang = language;
+  utterance.rate = 0.88;
+  const voices = window.speechSynthesis.getVoices();
+  const matchingVoice = voices.find(v => v.lang === language) ||
+    voices.find(v => v.lang.toLowerCase().startsWith(language.slice(0,2).toLowerCase()));
+  if (matchingVoice) utterance.voice = matchingVoice;
+  window.speechSynthesis.speak(utterance);
+}
+
+function renderWordCards() {
+  $("wordGrid").innerHTML = expressions.map((item, i) => `
+    <article class="word-card">
+      <div class="word-top">
+        <span class="number">${i + 1}</span>
+        <span class="expression">${item.phrase}</span>
+        <button class="sound-button" aria-label="Listen to ${item.phrase}"
+          onclick="speak(${JSON.stringify(item.example)})">🔊</button>
+      </div>
+      <div class="meaning">${item.meaning}</div>
+      <p class="example"><strong>e.g.</strong> ${item.example}</p>
+      <button class="btn secondary" style="margin-top:8px;padding:5px 8px;font-size:12px"
+        onclick="speak(${JSON.stringify(item.korean)},'ko-KR')">한국어 뜻 듣기</button>
+    </article>
+  `).join("");
+}
+
+function renderTargetList() {
+  $("targetList").innerHTML = expressions.map((item, i) => `
+    <li id="target-${i}">
+      <span class="number">${i + 1}</span>
+      <span>${item.phrase}</span>
+    </li>
+  `).join("");
+}
+
+function updateProgress() {
+  const completed = expressions.filter((_, i) =>
+    practiceResults[i] !== null &&
+    challengeResults[i] !== null &&
+    spellingResults[i] !== null
+  ).length;
+  const percent = Math.round(completed / 6 * 100);
+  $("overallBar").style.width = percent + "%";
+  $("overallCount").textContent = `${completed} / 6`;
+  $("overallMessage").textContent = completed === 6
+    ? "Amazing! You reviewed every expression!"
+    : "Complete the activities to track your progress.";
+
+  expressions.forEach((_, i) => {
+    const done = practiceResults[i] !== null &&
+      challengeResults[i] !== null &&
+      spellingResults[i] !== null;
+    const li = $("target-" + i);
+    if (li) li.classList.toggle("done", done);
+  });
+}
+
+function goTo(nextPage) {
+  page = nextPage;
+  document.querySelectorAll(".page").forEach((el, i) =>
+    el.classList.toggle("active", i === page)
+  );
+  document.querySelectorAll(".nav-button").forEach((el, i) => {
+    const selected = Number(el.dataset.go) === page ||
+      (page === 2 && i === 3) ||
+      (page === 3 && i === 4);
+    el.classList.toggle("active", selected);
+  });
+
+  if (page === 1) renderPractice();
+  if (page === 2) renderChallenge();
+  if (page === 3) renderFinalReview();
+
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
+document.querySelectorAll(".nav-button").forEach(button => {
+  button.addEventListener("click", () => goTo(Number(button.dataset.go)));
+});
+
+const practiceQuestions = [
+  {
+    q: "I write down my study hours every day. I ___ my study time.",
+    answer: "keep track of",
+    hint: "Think about recording information.",
+    why: "Keep track of means to record or monitor information."
+  },
+  {
+    q: "After studying for an hour, I ___ for ten minutes.",
+    answer: "take a break",
+    hint: "Think about resting for a short time.",
+    why: "Take a break means to stop an activity for a short rest."
+  },
+  {
+    q: "My phone distracts me, so I ___ it while studying.",
+    answer: "stay away from",
+    hint: "Think about keeping your distance from something.",
+    why: "Stay away from means to avoid or keep your distance from something."
+  },
+  {
+    q: "I go to bed early because I need to ___.",
+    answer: "get enough sleep",
+    hint: "Think about what your body needs at night.",
+    why: "Get enough sleep means to sleep for a sufficient amount of time."
+  },
+  {
+    q: "When I feel stressed, I take a walk to ___ it.",
+    answer: "deal with",
+    hint: "Think about managing a problem.",
+    why: "Deal with means to manage or handle a problem or situation."
+  },
+  {
+    q: "I made a study plan, and I try to ___ it every day.",
+    answer: "stick to",
+    hint: "Think about continuing to follow a plan.",
+    why: "Stick to means to continue following a plan or routine."
+  }
+];
+
+function renderPractice() {
+  practiceAnswered = practiceResults[practiceIndex] !== null;
+  const item = practiceQuestions[practiceIndex];
+  const choices = shuffle([
+    item.answer,
+    ...shuffle(expressions.map(e => e.phrase).filter(p => p !== item.answer)).slice(0,3)
+  ]);
+  $("practiceCount").textContent = `${practiceIndex + (practiceAnswered ? 1 : 0)} / 6`;
+  $("practiceBar").style.width =
+    ((practiceIndex + (practiceAnswered ? 1 : 0)) / 6 * 100) + "%";
+  $("practiceNext").disabled = !practiceAnswered;
+  $("practiceNext").textContent = practiceIndex === 5 ? "Finish Practice ✓" : "Next →";
+
+  $("practiceCard").innerHTML = `
+    <div class="question-count">Question ${practiceIndex + 1} of 6</div>
+    <div class="question">${item.q}</div>
+    <div class="options">
+      ${choices.map(choice => `
+        <button class="option" data-answer="${choice.replace(/"/g,"&quot;")}"
+          ${practiceAnswered ? "disabled" : ""}>${choice}</button>
+      `).join("")}
+    </div>
+    <div class="hint">💡 Hint: ${practiceAnswered ? item.hint : "Need help? Choose an answer to check it."}</div>
+    <div id="practiceFeedback" class="feedback ${practiceAnswered ? "show" : ""} ${
+      practiceResults[practiceIndex] ? "good" : "bad"
+    }">${practiceAnswered ? (practiceResults[practiceIndex] ? "✓ Correct! " : "Not quite. ") + item.why : ""}</div>
+  `;
+
+  $("practiceCard").querySelectorAll(".option").forEach(button => {
+    const selected = button.dataset.answer;
+    if (practiceAnswered) {
+      if (selected === item.answer) button.classList.add("correct");
+    } else {
+      button.addEventListener("click", () => answerPractice(selected, button));
+    }
+  });
+}
+
+function answerPractice(answer, clickedButton) {
+  if (practiceAnswered) return;
+  const item = practiceQuestions[practiceIndex];
+  const correct = answer === item.answer;
+  practiceAnswered = true;
+  practiceResults[practiceIndex] = correct;
+  if (correct) practiceScore++;
+
+  $("practiceCard").querySelectorAll(".option").forEach(button => {
+    button.disabled = true;
+    if (button.dataset.answer === item.answer) button.classList.add("correct");
+    if (button === clickedButton && !correct) button.classList.add("incorrect");
+  });
+
+  const feedback = $("practiceFeedback");
+  feedback.className = "feedback show " + (correct ? "good" : "bad");
+  feedback.textContent = correct
+    ? "✓ Correct! " + item.why
+    : "💡 Hint: " + item.hint + " The correct expression is “" + item.answer + ".”";
+  $("practiceNext").disabled = false;
+  $("practiceCount").textContent = `${practiceIndex + 1} / 6`;
+  $("practiceBar").style.width = ((practiceIndex + 1) / 6 * 100) + "%";
+  updateProgress();
+}
+
+function nextPractice() {
+  if (!practiceAnswered) return;
+  if (practiceIndex < 5) {
+    practiceIndex++;
+    renderPractice();
+  } else {
+    goTo(2);
+  }
+}
+
+const challengeQuestions = [
+  {
+    situation: "You want to write down how much time you spend studying.",
+    q: "Which expression fits your goal?",
+    answer: "keep track of",
+    why: "You keep track of something when you record or monitor it."
+  },
+  {
+    situation: "Your eyes feel tired after a long study session.",
+    q: "What should you do?",
+    answer: "take a break",
+    why: "Taking a break gives you time to rest."
+  },
+  {
+    situation: "You keep opening games on your phone while studying.",
+    q: "What should you try to do?",
+    answer: "stay away from",
+    why: "Staying away from your phone can reduce distractions."
+  },
+  {
+    situation: "You want to feel more focused in class tomorrow.",
+    q: "What should you make sure to do tonight?",
+    answer: "get enough sleep",
+    why: "Getting enough sleep can help you feel rested and focused."
+  },
+  {
+    situation: "You feel nervous and stressed before an exam.",
+    q: "Which expression means managing this feeling?",
+    answer: "deal with",
+    why: "You deal with a difficult feeling by managing it."
+  },
+  {
+    situation: "You have made a weekly study schedule.",
+    q: "Which expression means continuing to follow it?",
+    answer: "stick to",
+    why: "You stick to a plan when you continue following it."
+  }
+];
+
+function renderChallenge() {
+  challengeAnswered = challengeResults[challengeIndex] !== null;
+  const item = challengeQuestions[challengeIndex];
+  const choices = shuffle([
+    item.answer,
+    ...shuffle(expressions.map(e => e.phrase).filter(p => p !== item.answer)).slice(0,3)
+  ]);
+
+  $("challengeCount").textContent =
+    `${challengeIndex + (challengeAnswered ? 1 : 0)} / 6`;
+  $("challengeBar").style.width =
+    ((challengeIndex + (challengeAnswered ? 1 : 0)) / 6 * 100) + "%";
+  $("challengeNext").disabled = !challengeAnswered;
+  $("challengeNext").textContent = challengeIndex === 5 ? "Final Review →" : "Next →";
+
+  $("challengeCard").innerHTML = `
+    <div class="question-count">Situation ${challengeIndex + 1} of 6</div>
+    <div style="font-size:34px;margin:5px 0">💭</div>
+    <div class="question">${item.situation}</div>
+    <p>${item.q}</p>
+    <div class="options">
+      ${choices.map(choice => `
+        <button class="option" data-answer="${choice.replace(/"/g,"&quot;")}"
+          ${challengeAnswered ? "disabled" : ""}>${choice}</button>
+      `).join("")}
+    </div>
+    <div id="challengeFeedback" class="feedback ${challengeAnswered ? "show" : ""} ${
+      challengeResults[challengeIndex] ? "good" : "bad"
+    }">${challengeAnswered ?
+      (challengeResults[challengeIndex] ? "✓ Great choice! " : "Not quite. ") + item.why : ""}</div>
+  `;
+
+  $("challengeCard").querySelectorAll(".option").forEach(button => {
+    const selected = button.dataset.answer;
+    if (challengeAnswered) {
+      if (selected === item.answer) button.classList.add("correct");
+    } else {
+      button.addEventListener("click", () => answerChallenge(selected, button));
+    }
+  });
+}
+
+function answerChallenge(answer, clickedButton) {
+  if (challengeAnswered) return;
+  const item = challengeQuestions[challengeIndex];
+  const correct = answer === item.answer;
+  challengeAnswered = true;
+  challengeResults[challengeIndex] = correct;
+  if (correct) challengeScore++;
+
+  $("challengeCard").querySelectorAll(".option").forEach(button => {
+    button.disabled = true;
+    if (button.dataset.answer === item.answer) button.classList.add("correct");
+    if (button === clickedButton && !correct) button.classList.add("incorrect");
+  });
+
+  const feedback = $("challengeFeedback");
+  feedback.className = "feedback show " + (correct ? "good" : "bad");
+  feedback.textContent = correct
+    ? "✓ Great choice! " + item.why
+    : "💡 Try again next time! The best expression is “" + item.answer + ".” " + item.why;
+
+  $("challengeNext").disabled = false;
+  $("challengeCount").textContent = `${challengeIndex + 1} / 6`;
+  $("challengeBar").style.width = ((challengeIndex + 1) / 6 * 100) + "%";
+  updateProgress();
+}
+
+function nextChallenge() {
+  if (!challengeAnswered) return;
+  if (challengeIndex < 5) {
+    challengeIndex++;
+    renderChallenge();
+  } else {
+    goTo(3);
+  }
+}
+
+function renderFinalReview() {
+  const totalCorrect = practiceScore + challengeScore + spellingScore;
+  const totalAnswered = practiceResults.filter(v => v !== null).length +
+    challengeResults.filter(v => v !== null).length +
+    spellingResults.filter(v => v !== null).length;
+  const percent = totalAnswered ? Math.round(totalCorrect / totalAnswered * 100) : 0;
+
+  $("finalPercent").textContent = percent + "%";
+  $("finalMessage").textContent = totalAnswered === 18 && percent >= 80
+    ? "Fantastic! You are building better study habits! 🌟"
+    : totalAnswered === 18
+      ? "Good effort! Review the expressions you missed and try again."
+      : "Complete your spelling check to see your full score!";
+
+  $("reviewList").innerHTML = expressions.map((item, i) => `
+    <li><strong>${item.phrase}</strong> — ${item.meaning}
+      <div class="small">${item.example}</div>
+    </li>
+  `).join("");
+
+  renderSpelling();
+}
+
+function renderSpelling() {
+  spellingAnswered = spellingResults[spellingIndex] !== null;
+  spellingHintUsed = false;
+  const item = expressions[spellingIndex];
+
+  $("spellingPrompt").innerHTML =
+    `Type the English expression for <strong>“${item.meaning}”</strong>. ` +
+    `<span class="small">(${spellingIndex + 1} of 6)</span>`;
+  $("spellingInput").value = "";
+  $("spellingInput").disabled = spellingAnswered;
+  $("spellingFeedback").className = "feedback";
+  $("spellingFeedback").textContent = "";
+  $("spellingNext").disabled = !spellingAnswered;
+  $("spellingNext").textContent = spellingIndex === 5 ? "See Results ✓" : "Next Word →";
+  $("spellingHint").disabled = spellingAnswered;
+
+  if (spellingAnswered) {
+    const correct = spellingResults[spellingIndex];
+    $("spellingFeedback").className = "feedback show " + (correct ? "good" : "bad");
+    $("spellingFeedback").textContent = correct
+      ? "✓ Correct spelling!"
+      : "The correct expression is: " + item.phrase;
+  }
+}
+
+$("spellingForm").addEventListener("submit", event => {
+  event.preventDefault();
+  if (spellingAnswered) return;
+
+  const item = expressions[spellingIndex];
+  const answer = normalizeAnswer($("spellingInput").value);
+  if (!answer) {
+    $("spellingFeedback").className = "feedback show bad";
+    $("spellingFeedback").textContent = "Type your answer first.";
+    return;
+  }
+
+  const correct = answer === item.phrase;
+  spellingAnswered = true;
+  spellingResults[spellingIndex] = correct;
+  if (correct) spellingScore++;
+
+  $("spellingInput").disabled = true;
+  $("spellingNext").disabled = false;
+  $("spellingHint").disabled = true;
+  $("spellingFeedback").className = "feedback show " + (correct ? "good" : "bad");
+  $("spellingFeedback").textContent = correct
+    ? "✓ Correct! You spelled it perfectly."
+    : "The correct expression is “" + item.phrase + ".” Read it aloud and try to remember it.";
+  updateProgress();
+
+  if (spellingResults.every(v => v !== null)) {
+    const total = practiceScore + challengeScore + spellingScore;
+    $("finalPercent").textContent = Math.round(total / 18 * 100) + "%";
+    $("finalMessage").textContent = total >= 15
+      ? "Fantastic! You are building better study habits! 🌟"
+      : "Good effort! Review the expressions and practice again.";
+  }
+});
+
+function showSpellingHint() {
+  if (spellingAnswered) return;
+  const item = expressions[spellingIndex];
+  spellingHintUsed = true;
+  const firstWord = item.phrase.split(" ")[0];
+  $("spellingFeedback").className = "feedback show";
+  $("spellingFeedback").textContent =
+    `💡 Hint: The expression starts with “${firstWord}”. Think about the meaning!`;
+  $("spellingInput").focus();
+}
+
+function nextSpelling() {
+  if (!spellingAnswered) return;
+  if (spellingIndex < 5) {
+    spellingIndex++;
+    renderSpelling();
+  } else {
+    const total = practiceScore + challengeScore + spellingScore;
+    $("finalPercent").textContent = Math.round(total / 18 * 100) + "%";
+    $("finalMessage").textContent = total >= 15
+      ? "Fantastic! You are building better study habits! 🌟"
+      : "Good effort! Review the expressions and practice again.";
+    $("spellingPrompt").textContent = "You have completed all six spelling questions!";
+    $("spellingForm").style.display = "none";
+    $("spellingFeedback").className = "feedback show good";
+    $("spellingFeedback").textContent = "🎉 Spelling check complete! Your final score is " +
+      Math.round(total / 18 * 100) + "%.";
+    $("spellingHint").style.display = "none";
+    $("spellingNext").disabled = true;
+    $("spellingNext").textContent = "Completed ✓";
+  }
+}
+
+function restartApp() {
+  practiceIndex = 0;
+  challengeIndex = 0;
+  spellingIndex = 0;
+  practiceScore = 0;
+  challengeScore = 0;
+  spellingScore = 0;
+  practiceAnswered = false;
+  challengeAnswered = false;
+  spellingAnswered = false;
+  practiceResults = Array(6).fill(null);
+  challengeResults = Array(6).fill(null);
+  spellingResults = Array(6).fill(null);
+  $("spellingForm").style.display = "flex";
+  $("spellingHint").style.display = "inline-block";
+  $("spellingNext").textContent = "Next Word →";
+  updateProgress();
+  goTo(0);
+}
+
+renderWordCards();
+renderTargetList();
+updateProgress();
+</script>
+</body>
+</html>
